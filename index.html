@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国当代史 · 选择题题库 (1949-1982)</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;background:#f5f0e8;color:#2c2416;min-height:100vh}
+.container{max-width:800px;margin:0 auto;padding:20px}
+
+/* Header */
+.header{text-align:center;padding:40px 20px 30px}
+.header h1{font-size:1.8em;color:#8b1a1a;margin-bottom:6px}
+.header .sub{font-size:.9em;color:#8b6914}
+.header .stats{margin-top:12px;font-size:.85em;color:#666}
+
+/* Cards */
+.card{background:#fff;border-radius:12px;padding:24px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.card h2{font-size:1.2em;color:#333;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #eee}
+
+/* Buttons */
+.btn{display:block;width:100%;padding:18px 24px;margin:12px 0;border:none;border-radius:10px;font-size:1.05em;cursor:pointer;text-align:center;transition:all .2s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.btn:active{transform:translateY(0)}
+.btn-primary{background:#8b1a1a;color:#fff}
+.btn-primary:hover{background:#a01e1e}
+.btn-outline{background:#fff;color:#8b1a1a;border:2px solid #8b1a1a}
+.btn-outline:hover{background:#fef5f5}
+.btn-browse{background:#fff;color:#5a4a2a;border:2px solid #8b6914}
+.btn-browse:hover{background:#fdf8ef}
+
+.badge{display:inline-block;background:#e74c3c;color:#fff;border-radius:12px;padding:2px 10px;font-size:.8em;margin-left:6px}
+
+/* Quiz */
+.quiz-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.progress-bar{flex:1;height:8px;background:#eee;border-radius:4px;overflow:hidden;min-width:100px}
+.progress-fill{height:100%;background:#8b1a1a;transition:width .3s}
+.quiz-stats{font-size:.9em;color:#666;white-space:nowrap}
+.period-select{padding:8px 12px;border:1px solid #ccc;border-radius:6px;font-size:.9em;background:#fff}
+
+.q-card{background:#fff;border-radius:12px;padding:28px;margin:16px 0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.q-num{font-size:.85em;color:#999;margin-bottom:8px}
+.q-text{font-size:1.15em;line-height:1.7;margin-bottom:20px;color:#2c2416}
+.opt-btn{display:block;width:100%;padding:14px 18px;margin:8px 0;text-align:left;border:2px solid #e0d8c8;border-radius:8px;background:#fdfaf5;font-size:1em;cursor:pointer;transition:all .2s}
+.opt-btn:hover:not(.done){border-color:#8b6914;background:#fef9ef}
+.opt-btn.correct{border-color:#27ae60;background:#eafaf1;color:#1e7e34}
+.opt-btn.wrong{border-color:#e74c3c;background:#fdedec;color:#b03a2e}
+.opt-btn.show-correct{border-color:#27ae60}
+.opt-btn.done{pointer-events:none}
+.analysis-box{margin-top:16px;padding:16px;background:#fef9ef;border-left:4px solid #8b6914;border-radius:6px;font-size:.95em;line-height:1.7;display:none}
+.analysis-box.show{display:block}
+.next-btn{margin-top:12px;padding:12px 28px;background:#8b1a1a;color:#fff;border:none;border-radius:8px;font-size:1em;cursor:pointer;display:none}
+.next-btn.show{display:inline-block}
+
+/* Wrong book */
+.wrong-item{background:#fff;border-radius:10px;padding:18px;margin:12px 0;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.wrong-q{font-weight:bold;margin-bottom:8px}
+.wrong-info{font-size:.9em;color:#666;margin:4px 0}
+.wrong-analysis{font-size:.9em;padding:10px;background:#fef9ef;border-radius:6px;margin-top:8px;line-height:1.6}
+.retry-btn{padding:8px 18px;margin-top:8px;background:#8b1a1a;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:.9em}
+.retry-btn.correct-retry{background:#27ae60}
+.empty-state{text-align:center;padding:60px 20px;color:#999;font-size:1.1em}
+
+/* Browse */
+.period-section{margin:20px 0}
+.period-title{font-size:1.1em;font-weight:bold;color:#8b1a1a;margin-bottom:12px;padding:10px 16px;background:#fef5f5;border-radius:8px;cursor:pointer}
+.browse-q{background:#fff;border-radius:8px;padding:14px;margin:8px 0;box-shadow:0 1px 3px rgba(0,0,0,.04);cursor:pointer}
+.browse-q:hover{background:#fefaf5}
+.browse-q .q-title{font-size:.95em}
+.browse-q .q-answer{display:none;margin-top:10px;padding-top:10px;border-top:1px solid #eee;font-size:.9em;line-height:1.6}
+.browse-q .q-answer.show{display:block}
+.browse-q .correct-ans{color:#1e7e34;font-weight:bold}
+.search-box{width:100%;padding:12px 16px;border:2px solid #e0d8c8;border-radius:8px;font-size:1em;margin-bottom:16px}
+.search-box:focus{outline:none;border-color:#8b6914}
+
+/* Navigation */
+.nav-back{display:inline-block;padding:8px 16px;color:#8b1a1a;cursor:pointer;font-size:.9em;margin-bottom:12px}
+.nav-back:hover{text-decoration:underline}
+
+/* Key hints */
+.key-hints{text-align:center;font-size:.8em;color:#aaa;margin-top:8px}
+
+.hidden{display:none}
+
+@media(max-width:600px){
+  .header h1{font-size:1.4em}
+  .q-text{font-size:1.05em}
+  .opt-btn{padding:12px 14px;font-size:.95em}
+}
+</style>
+</head>
+<body>
+<div class="container" id="app"></div>
+
+<script>
+// ═══════════════════════════════════
+// DATA: Load from external file
+// ═══════════════════════════════════
+let QUESTIONS = [];
+
+async function loadQuestions() {
+  try {
+    const resp = await fetch('questions.js');
+    const text = await resp.text();
+    // Parse JavaScript assignment: window.QUESTIONS = [...];
+    const jsonStr = text.replace(/^window\.QUESTIONS\s*=\s*/, '').replace(/;\s*$/, '');
+    QUESTIONS = JSON.parse(jsonStr);
+  } catch(e) {
+    console.error('Failed to load questions.js, trying fallback...', e);
+    // Fallback: try to load JSON directly
+    try {
+      const resp2 = await fetch('questions_data.json');
+      QUESTIONS = await resp2.json();
+    } catch(e2) {
+      QUESTIONS = [];
+      console.error('No question data available');
+    }
+  }
+}
+
+// ═══════════════════════════════════
+// STORAGE
+// ═══════════════════════════════════
+const STORE = {
+  getWrongList() {
+    try { return JSON.parse(localStorage.getItem('cq_wrong') || '[]'); } catch(e) { return []; }
+  },
+  setWrongList(list) {
+    localStorage.setItem('cq_wrong', JSON.stringify(list));
+  },
+  addWrong(qid) {
+    const list = this.getWrongList();
+    if (!list.includes(qid)) {
+      list.unshift(qid);
+      this.setWrongList(list);
+    }
+  },
+  removeWrong(qid) {
+    const list = this.getWrongList().filter(id => id !== qid);
+    this.setWrongList(list);
+  },
+  getProgress() {
+    try { return JSON.parse(localStorage.getItem('cq_progress') || '{"total":0,"correct":0}'); } catch(e) { return {total:0,correct:0}; }
+  },
+  setProgress(p) {
+    localStorage.setItem('cq_progress', JSON.stringify(p));
+  },
+  recordAnswer(correct) {
+    const p = this.getProgress();
+    p.total++;
+    if (correct) p.correct++;
+    this.setProgress(p);
+  }
+};
+
+// ═══════════════════════════════════
+// APP STATE
+// ═══════════════════════════════════
+let state = {
+  view: 'home',       // home | quiz | wrong | browse
+  quizFilter: 'all',  // period filter
+  quizQueue: [],      // shuffled question IDs
+  quizIndex: 0,
+  wrongRetryId: null
+};
+
+// ═══════════════════════════════════
+// RENDER
+// ═══════════════════════════════════
+const app = document.getElementById('app');
+
+function render() {
+  switch(state.view) {
+    case 'home': renderHome(); break;
+    case 'quiz': renderQuiz(); break;
+    case 'wrong': renderWrong(); break;
+    case 'browse': renderBrowse(); break;
+  }
+}
+
+// ─── HOME ───
+function renderHome() {
+  const progress = STORE.getProgress();
+  const wrongCount = STORE.getWrongList().length;
+  const rate = progress.total > 0 ? Math.round(progress.correct / progress.total * 100) : '-';
+
+  app.innerHTML = `
+    <div class="header">
+      <h1>中国当代史 · 选择题题库</h1>
+      <div class="sub">1949 — 1982 · 覆盖建国初期至改革开放</div>
+      <div class="stats">已刷 ${progress.total} 题 | 正确率 ${rate}% | 错题 ${wrongCount} 道</div>
+    </div>
+    <div class="card">
+      <button class="btn btn-primary" onclick="startQuiz('all')">开始刷题</button>
+      <button class="btn btn-outline" onclick="startQuiz('1949-1952')">专项刷题: 1949-1952 建国初期</button>
+      <button class="btn btn-outline" onclick="startQuiz('1953-1957')">专项刷题: 1953-1957 过渡时期</button>
+      <button class="btn btn-outline" onclick="startQuiz('1958-1965')">专项刷题: 1958-1965 大跃进与调整</button>
+      <button class="btn btn-outline" onclick="startQuiz('1966-1976')">专项刷题: 1966-1976 文化大革命</button>
+      <button class="btn btn-outline" onclick="startQuiz('1977-1982')">专项刷题: 1977-1982 改革开放初期</button>
+      <button class="btn btn-browse" onclick="showView('wrong')">错题本 <span class="badge" id="wrong-badge">${wrongCount}</span></button>
+      <button class="btn btn-browse" onclick="showView('browse')">题库大览</button>
+    </div>
+    <div class="key-hints">键盘快捷键: A/B/C/D 选择 | 方向键右 下一题</div>
+  `;
+}
+
+// ─── QUIZ ───
+function startQuiz(filter) {
+  state.quizFilter = filter;
+  let pool = QUESTIONS;
+  if (filter !== 'all') {
+    pool = QUESTIONS.filter(q => q.period === filter);
+  }
+  // Shuffle
+  state.quizQueue = pool.map(q => q.id).sort(() => Math.random() - 0.5);
+  state.quizIndex = 0;
+  state.view = 'quiz';
+  render();
+}
+
+function renderQuiz() {
+  if (state.quizQueue.length === 0) {
+    app.innerHTML = `<div class="empty-state">题库暂无题目，请先添加题目数据。</div>`;
+    return;
+  }
+  if (state.quizIndex >= state.quizQueue.length) {
+    // Quiz finished
+    const p = STORE.getProgress();
+    app.innerHTML = `
+      <div class="card" style="text-align:center">
+        <h2>本轮刷题完成！</h2>
+        <p style="font-size:1.2em;margin:16px 0">正确率: ${p.total > 0 ? Math.round(p.correct/p.total*100) : 0}%</p>
+        <button class="btn btn-primary" onclick="startQuiz(state.quizFilter)">再来一轮</button>
+        <button class="btn btn-outline" onclick="showView('wrong')">查看错题本</button>
+        <button class="btn btn-browse" onclick="showView('home')">返回主页</button>
+      </div>`;
+    return;
+  }
+
+  const qid = state.quizQueue[state.quizIndex];
+  const q = QUESTIONS.find(x => x.id === qid);
+  if (!q) { state.quizIndex++; render(); return; }
+
+  const pool = state.quizFilter === 'all' ? QUESTIONS : QUESTIONS.filter(x => x.period === state.quizFilter);
+  const total = state.quizQueue.length;
+  const current = state.quizIndex + 1;
+  const progress = STORE.getProgress();
+  const rate = progress.total > 0 ? Math.round(progress.correct / progress.total * 100) : '-';
+
+  const labels = ['A', 'B', 'C', 'D'];
+
+  app.innerHTML = `
+    <div class="nav-back" onclick="showView('home')">← 返回主页</div>
+    <div class="quiz-header">
+      <div class="progress-bar"><div class="progress-fill" style="width:${(current/total*100)}%"></div></div>
+      <div class="quiz-stats">${current}/${total} | 累计正确率 ${rate}%</div>
+      <select class="period-select" onchange="startQuiz(this.value)" value="${state.quizFilter}">
+        <option value="all" ${state.quizFilter==='all'?'selected':''}>全部时期</option>
+        <option value="1949-1952" ${state.quizFilter==='1949-1952'?'selected':''}>1949-1952</option>
+        <option value="1953-1957" ${state.quizFilter==='1953-1957'?'selected':''}>1953-1957</option>
+        <option value="1958-1965" ${state.quizFilter==='1958-1965'?'selected':''}>1958-1965</option>
+        <option value="1966-1976" ${state.quizFilter==='1966-1976'?'selected':''}>1966-1976</option>
+        <option value="1977-1982" ${state.quizFilter==='1977-1982'?'selected':''}>1977-1982</option>
+      </select>
+    </div>
+    <div class="q-card" id="q-card">
+      <div class="q-num">第 ${current} 题 · ID:${q.id} · ${q.period}</div>
+      <div class="q-text">${q.question}</div>
+      <div id="options">
+        ${q.options.map((opt, i) => `
+          <button class="opt-btn" id="opt-${i}" onclick="answerQuiz(${qid}, ${i})">${labels[i]}. ${opt}</button>
+        `).join('')}
+      </div>
+      <div class="analysis-box" id="analysis"></div>
+      <button class="next-btn" id="next-btn" onclick="nextQuiz()">下一题 →</button>
+    </div>
+    <div class="key-hints">键盘: A/B/C/D 选择 | → 下一题</div>
+  `;
+
+  // Keyboard
+  document.onkeydown = function(e) {
+    if (state.view !== 'quiz') return;
+    const key = e.key.toUpperCase();
+    if (['A','B','C','D'].includes(key)) {
+      const idx = labels.indexOf(key);
+      const btn = document.getElementById('opt-'+idx);
+      if (btn && !btn.classList.contains('done')) answerQuiz(qid, idx);
+    } else if (e.key === 'ArrowRight') {
+      nextQuiz();
+    }
+  };
+}
+
+function answerQuiz(qid, userAnswer) {
+  const q = QUESTIONS.find(x => x.id === qid);
+  if (!q) return;
+  const correct = userAnswer === q.answer;
+  const labels = ['A', 'B', 'C', 'D'];
+
+  // Disable all option buttons
+  document.querySelectorAll('.opt-btn').forEach(b => b.classList.add('done'));
+
+  // Highlight
+  document.getElementById('opt-'+q.answer).classList.add('correct');
+  if (!correct) {
+    document.getElementById('opt-'+userAnswer).classList.add('wrong');
+    STORE.addWrong(qid);
+  }
+  STORE.recordAnswer(correct);
+
+  // Show analysis
+  const analysis = document.getElementById('analysis');
+  analysis.innerHTML = `
+    <strong>${correct ? '✓ 回答正确！' : '✗ 回答错误'}</strong><br>
+    正确答案: <strong>${labels[q.answer]}. ${q.options[q.answer]}</strong><br><br>
+    ${q.analysis}
+  `;
+  analysis.classList.add('show');
+  document.getElementById('next-btn').classList.add('show');
+
+  // Update wrong badge on page if visible
+  const badge = document.getElementById('wrong-badge');
+  if (badge) badge.textContent = STORE.getWrongList().length;
+}
+
+function nextQuiz() {
+  state.quizIndex++;
+  render();
+}
+
+// ─── WRONG BOOK ───
+function renderWrong() {
+  const wrongIds = STORE.getWrongList();
+  if (wrongIds.length === 0) {
+    app.innerHTML = `
+      <div class="nav-back" onclick="showView('home')">← 返回主页</div>
+      <div class="empty-state">暂无错题，继续保持！</div>`;
+    return;
+  }
+
+  let html = `<div class="nav-back" onclick="showView('home')">← 返回主页</div>
+    <div class="card"><h2>错题本 (${wrongIds.length} 题)</h2></div>`;
+
+  wrongIds.forEach(qid => {
+    const q = QUESTIONS.find(x => x.id === qid);
+    if (!q) return;
+    const labels = ['A','B','C','D'];
+    html += `
+      <div class="wrong-item">
+        <div class="wrong-q">#${q.id} [${q.period}] ${q.question}</div>
+        <div class="wrong-info">正确答案: <strong style="color:#1e7e34">${labels[q.answer]}. ${q.options[q.answer]}</strong></div>
+        <div class="wrong-analysis">${q.analysis}</div>
+        <button class="retry-btn" onclick="retryWrong(${qid})">重做此题</button>
+        <span id="retry-${qid}"></span>
+      </div>`;
+  });
+
+  app.innerHTML = html;
+}
+
+function retryWrong(qid) {
+  const q = QUESTIONS.find(x => x.id === qid);
+  if (!q) return;
+  const userAnswer = prompt(`【重做】\n${q.question}\n\nA. ${q.options[0]}\nB. ${q.options[1]}\nC. ${q.options[2]}\nD. ${q.options[3]}\n\n请输入 A/B/C/D:`);
+  if (!userAnswer) return;
+  const idx = ['A','B','C','D'].indexOf(userAnswer.toUpperCase());
+  const span = document.getElementById('retry-'+qid);
+  if (idx === q.answer) {
+    STORE.removeWrong(qid);
+    span.innerHTML = '<span style="color:#27ae60">✓ 正确！已从错题本移除</span>';
+    setTimeout(() => render(), 800);
+  } else {
+    span.innerHTML = '<span style="color:#e74c3c">✗ 错误，请重试</span>';
+  }
+}
+
+// ─── BROWSE ───
+function renderBrowse() {
+  const periods = ['1949-1952','1953-1957','1958-1965','1966-1976','1977-1982'];
+  const periodNames = {
+    '1949-1952':'建国初期 (1949-1952)',
+    '1953-1957':'过渡时期 (1953-1957)',
+    '1958-1965':'大跃进与调整 (1958-1965)',
+    '1966-1976':'文化大革命 (1966-1976)',
+    '1977-1982':'改革开放初期 (1977-1982)'
+  };
+
+  let html = `<div class="nav-back" onclick="showView('home')">← 返回主页</div>
+    <div class="card"><h2>题库大览</h2>
+    <input class="search-box" placeholder="搜索题目关键词..." oninput="searchBrowse(this.value)">
+    <p style="color:#999;font-size:.9em">共 ${QUESTIONS.length} 题，点击题目展开答案</p>
+    </div>`;
+
+  periods.forEach(p => {
+    const qs = QUESTIONS.filter(q => q.period === p);
+    if (qs.length === 0) return;
+    html += `<div class="period-section">
+      <div class="period-title">${periodNames[p]} · ${qs.length} 题</div>`;
+    qs.forEach(q => {
+      const labels = ['A','B','C','D'];
+      html += `
+        <div class="browse-q" data-period="${p}" data-text="${q.question}" onclick="toggleBrowse(this)">
+          <div class="q-title">#${q.id} ${q.question}</div>
+          <div class="q-answer">
+            <span class="correct-ans">${labels[q.answer]}. ${q.options[q.answer]}</span><br>
+            ${q.analysis}
+          </div>
+        </div>`;
+    });
+    html += `</div>`;
+  });
+
+  app.innerHTML = html;
+}
+
+function toggleBrowse(el) {
+  const ans = el.querySelector('.q-answer');
+  ans.classList.toggle('show');
+}
+
+function searchBrowse(keyword) {
+  document.querySelectorAll('.browse-q').forEach(el => {
+    const text = el.getAttribute('data-text').toLowerCase();
+    if (!keyword || text.includes(keyword.toLowerCase())) {
+      el.style.display = '';
+    } else {
+      el.style.display = 'none';
+    }
+  });
+}
+
+// ─── NAVIGATION ───
+function showView(view) {
+  state.view = view;
+  render();
+}
+
+// ═══════════════════════════════════
+// INIT
+// ═══════════════════════════════════
+async function init() {
+  await loadQuestions();
+  console.log(`Loaded ${QUESTIONS.length} questions`);
+  render();
+}
+init();
+</script>
+</body>
+</html>
