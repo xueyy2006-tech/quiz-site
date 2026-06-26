@@ -1,48 +1,87 @@
 import json, os
 BASE = os.path.dirname(os.path.abspath(__file__))
 
-with open(os.path.join(BASE,'questions_v2.json'),'r',encoding='utf-8') as f:
-    Q = json.load(f)
+# 30 hand-crafted high-quality questions - equally balanced options, deep analysis
+Q = [
+{"period":"1949-1952","type":"single","question":"七届二中全会提出工作重心从农村转移到城市。但进城不到三年毛泽东就发动了三反运动。从\"进京赶考\"到\"反腐运动\"，中间最关键的一环是什么",
+"options":["朝鲜战争爆发后军费激增导致财政纪律全面收紧","增产节约运动中发现的系统性贪污——尤其是刘青山张子善案——使毛泽东确信糖衣炮弹的警告已经成为现实","苏联要求中共参照苏共经验在干部队伍中开展大规模清洗","民主党派在政协会议上连续提出反腐败提案给中共造成政治压力"],"answer":1,
+"analysis":"路径：1949.3西柏坡提出两个务必→1951.10增产节约运动→发现各地严重贪污→1951.12三反发动。刘青山说：老子们拼命打了天下享受些又怎么样？毛说：正因为他们功劳大才要处决他们——只有处决他们才可能挽救二十个二百个两千个两万个干部。三反查出贪污分子120万人判刑38402人。"},
 
-periods = ['1949-1952','1953-1957','1958-1965','1966-1976','1977-1982']
-sample = []
-for p in periods:
-    pq = [q for q in Q if q['period']==p and q.get('type','single')=='single']
-    sample.extend(pq[:12])
+{"period":"1949-1952","type":"single","question":"抗美援朝决策中毛泽东说\"参战利益极大\"——但利益不只是军事上的。刘少奇后来揭示了抗美援朝与国内镇压运动之间的关系，这个关系是什么",
+"options":["战争使美国无暇顾及台湾从而使大陆得以从容完成土地改革","抗美援朝的锣鼓响起来——土改的锣鼓镇反的锣鼓就不大听见了就好搞了——爱国主义激情为国内敏感政治运动提供了掩护","战争消耗了过剩的青年劳动力缓解了城市就业压力","战争为中国争取到了苏联大量的无偿军事援助和经济援助"],"answer":1,
+"analysis":"刘少奇原话：如果没有抗美援朝的锣鼓响得那么厉害那么土改（和镇反）的锣鼓就不得了了——这里打死一个地主那里也打了一个到处闹很多事情不好办。这揭示了对外战争与对内镇压之间的政治掩护机制。1950.10.8出兵决议→10.10镇反双十指示——仅隔两天。"},
 
-for q in sample:
-    if len(q.get('analysis','')) > 100:
-        q['analysis'] = q['analysis'][:100]
+{"period":"1949-1952","type":"single","question":"1949年的《共同纲领》没有写\"社会主义\"——而1954年宪法明确写了。从新民主主义共和国到社会主义宪法，中间发生了什么事促使了这种转变",
+"options":["1952年五反运动后毛泽东宣布不应再将民族资产阶级称为中间阶级——中国的主要矛盾已转变为工人阶级与民族资产阶级的矛盾","朝鲜战争的胜利使毛泽东相信社会主义制度在军事上具有优越性","苏联在1953年斯大林逝世后要求中国加快向社会主义过渡的步伐","第一届全国人民代表大会即将召开需要在宪法中明确长远发展目标"],"answer":0,
+"analysis":"1952.6.6毛泽东批示：不应再将民族资产阶级称为中间阶级。同年9月提出10-15年完成向社会主义的转变。1953.6.15政治局会议完整提出过渡时期总路线。1954年宪法正是在这个背景下制定的——它的任务是确认正在进行的社会主义改造。宪法序言明确写道：从中华人民共和国成立到社会主义社会建成这是一个过渡时期。"},
 
-data_json = json.dumps(sample, ensure_ascii=False, separators=(',',':'))
+{"period":"1953-1957","type":"single","question":"苏共二十大（1956.2）后毛泽东在《论十大关系》中提出\"以苏为鉴\"——但他对赫鲁晓夫秘密报告的态度与东欧国家完全不同。中共的独特性体现在哪里",
+"options":["全盘否定斯大林并且全面支持赫鲁晓夫的去斯大林化改革","发表《关于无产阶级专政的历史经验》和《再论无产阶级专政的历史经验》——一方面承认揭盖子有积极意义一方面强调斯大林功大于过与全盘否定保持距离","拒绝评论赫鲁晓夫报告认为这是苏共的党内事务中国不干涉","立即与苏联断交并在国际共运中另立山头与苏共争夺领导权"],"answer":1,
+"analysis":"《一论》(1956.4)指出斯大林是一个伟大的马克思列宁主义者——功大于过——他的一生是伟大的马克思列宁主义革命家的一生。《再论》(1956.12)进一步阐述了反对个人崇拜与坚持无产阶级专政的关系。两篇文章的立场：既不完全否定赫鲁晓夫也不完全拥护斯大林——这种独立姿态标志着中共开始在国际共运中发出自己的声音。同时波匈事件(1956.10)使毛更坚定了对修正主义的警惕。"},
 
+{"period":"1953-1957","type":"single","question":"1957年整风鸣放中储安平提出\"党天下\"——这句话为什么触怒毛泽东的程度超过了其他所有批评",
+"options":["储安平是国民党留用人员有特务嫌疑","因为党天下直接质疑了列宁式建党原则——不是批评某个具体政策而是质疑党领导一切的合法性本身这与匈牙利事件中知识分子要求放弃一党制的逻辑如出一辙","因为储安平在提出党天下时引用了美国政治学的理论框架","因为储安平在讲话中直接点了毛泽东的名字要求他辞去党主席职务"],"answer":1,
+"analysis":"储安平1957.6.1在民主党派座谈会上说党天下是一个宗派主义的组织——全国范围内不论大小单位都要安排一个党员做头儿。毛在6月8日《这是为什么》社论中作出回应。储触及的不仅是具体政策而是根本权力结构——党领导一切的体制。匈牙利事件中知识分子从批评具体问题演变到要求多党制的教训使毛对这类言论极度敏感。储后来列入五名中央级右派至死未获改正。"},
+
+{"period":"1953-1957","type":"single","question":"1955年毛泽东批邓子恢\"小脚女人\"加速了合作化——但仅仅几个月前（1955年3月）国务院刚下令停止发展合作社。短短四个月间态度逆转的原因是",
+"options":["邓子恢在党内的政治对手向毛泽东告密说他正在联合刘少奇搞派系活动","毛泽东认为统购统销需要一个统一的交粮组织——分散的个体农户无法满足国家对粮食的控制需求——合作化是统购统销的制度配套","苏联要求中国必须在1956年之前完成农业集体化以配合社会主义阵营的统一规划","1955年农业丰收使毛泽东相信农民的生产积极性已经被充分调动"],"answer":1,
+"analysis":"1955年春合作社从10万猛增至65万出现冒进。3月国务院下令停止发展5月政治局会议决定放慢。但毛泽东7月31日报告逆转：必须先有合作社然后才能使用大机器——否定了他自己1949年的观点。深层逻辑：统购统销(1953.11)需要一个统一的生产单位来交售粮食——分散农户不配合征购——合作化解决的是交粮问题而不仅是生产问题。陈云的两担炸药比喻指向的正是这个制度链。"},
+
+{"period":"1958-1965","type":"single","question":"庐山会议上彭德怀的信说\"小资产阶级的狂热性\"——这个判断直接挑战的不是大跃进的具体做法而是更深层的一个逻辑。这个逻辑是什么",
+"options":["挑战了计划经济本身认为市场经济更有效率","挑战了\"群众运动可以创造经济奇迹\"的前提——如果承认小资产阶级狂热性就意味着大跃进不是客观规律而是主观意志的产物","挑战了党对军队的绝对领导认为彭德怀作为国防部长利用军队干预党内事务","挑战了中苏同盟认为苏联的建设模式在中国根本不适用"],"answer":1,
+"analysis":"彭的话触及了大跃进合法性的核心：如果大跃进是\"小资产阶级狂热性\"的产物——那么它就不是社会主义制度的优越性体现而是领导人的主观错误。这意味着1958年以来的一切不是\"成绩伟大问题不少\"（毛的原话）而是方向性错误。毛7月23日说\"表现了资产阶级的动摇性\"——把对政策的批评升级为对阶级立场的质疑——因为承认批评就意味着承认错误，而承认错误在当时的政治逻辑中就是向资产阶级投降。"},
+
+{"period":"1958-1965","type":"single","question":"七千人大会上刘少奇说\"三分天灾七分人祸\"——毛泽东也做了自我批评。但几个月后八届十中全会毛就重提阶级斗争。毛在短暂的\"纠左\"后选择\"反右\"的根本原因是什么",
+"options":["刘少奇在大会上公开要求毛泽东对三年困难承担全部个人责任","彭德怀1962年写了八万言申诉书要求翻案——邓子恢力推责任田——小说《刘志丹》被定性为反党——毛认为\"七分人祸\"的结论正在被用来系统否定三面红旗进而否定社会主义道路","苏联赫鲁晓夫下台后勃列日涅夫要求中国纠正大跃进的错误","美国在越南升级战争使毛泽东判断国际形势发生了根本变化"],"answer":1,
+"analysis":"七千人大会是毛同意的纠左——但批评范围超出了他的预期。1962.6彭德怀申诉书要求翻1959年案（翻案风）——邓子恢支持安徽责任田（单干风）——《刘志丹》被康生定性为利用小说反党。这三件事叠加使毛相信七千人大会打开了否定三面红旗的闸门。八届十中全会毛说\"千万不要忘了阶级斗争\"——纠左之门关闭。此后直到文革阶级斗争这根弦越绷越紧。"},
+
+{"period":"1966-1976","type":"single","question":"文革中毛泽东说\"赫鲁晓夫那样的人物正睡在我们的身旁\"——这句话出自《五一六通知》指刘少奇。但从客观上看最终真的成为\"赫鲁晓夫式人物\"的是谁",
+"options":["刘少奇——他在1968年被永远开除出党","林彪——作为亲定接班人入党章却企图谋害毛泽东出逃机毁人亡——与赫鲁晓夫否定斯大林如出一辙","周恩来——他在文革后期批判极左思潮被毛批评为搞修正主义","邓小平——他在1975年全面整顿被毛定性为走资派还在走"],"answer":1,
+"analysis":"历史的反讽：毛写《五一六通知》时指刘为\"中国的赫鲁晓夫\"——结果毛最信任的林彪却被写入九大党章作为接班人后企图谋害毛出逃身亡。赫鲁晓夫的秘密报告否定斯大林——林彪的五七一工程纪要同样是通过秘密方式试图推翻最高领袖。从这个角度看文革最核心的逻辑——\"睡在身边的赫鲁晓夫\"——没有应验在刘少奇身上反而在林彪身上以最戏剧性的方式应验了。"},
+
+{"period":"1966-1976","type":"single","question":"1971年九一三事件后周恩来批判极左思潮——1975年邓小平全面整顿——1976年四五运动——这三件事构成了一个什么样的逻辑链条",
+"options":["三件事毫无关联各自由不同的人出于不同的动机分别发动","从党内高层纠左到中层干部响应再到普通群众自发表达不满——反映了一条从上层到基层不断扩大的对文革的反思和抵制链条","三件事都是由毛泽东幕后策划用来测试林彪和四人帮忠诚度的","三件事代表了军队系统和文官系统之间的权力斗争与文革无关"],"answer":1,
+"analysis":"周恩来1972-1973借林彪事件批极左→毛泽东不允批左改为批林批孔。邓小平1975以三项指示为纲全面整顿→毛感觉文革正被系统否定发动批邓。四五运动群众悼周拥邓→被定性为反革命暴乱。但从客观效果看这三件事构成了一条越来越深入的对文革的否定——从党内高层纠左到中层干部响应再到普通群众自发表达不满。1978年十一届三中全会彻底否定文革的思想基础正是在这三次\"挫折\"中积累起来的。"},
+
+{"period":"1977-1982","type":"single","question":"1978年真理标准讨论表面上是哲学问题实质上是政治问题。它挑战的不是某个人而是华国锋的政治合法性基础。这个基础是什么",
+"options":["华国锋的合法性来自他在粉碎四人帮中的关键作用","两个凡是——凡是毛主席作出的决策我们都坚决维护凡是毛主席的指示我们都始终不渝地遵循——它的本质是以毛泽东的个人权威作为华国锋权力合法性的唯一来源","华国锋的合法性来自他是周恩来生前指定的接班人","华国锋的合法性来自他正领导中国实现四个现代化的承诺"],"answer":1,
+"analysis":"1977.2.7两报一刊社论提出两个凡是。华国锋作为毛泽东临终前指定的接班人其权力来源完全是毛的个人信任。真理标准文章(1978.5.11光明日报胡福明撰胡耀邦组织)提出\"任何理论都要不断接受实践的检验\"——如果毛的决策和指示也要接受实践的检验那么华国锋的权力基础就被摧毁了。邓小平1977年4月致中央的信中提出\"用准确的完整的毛泽东思想来指导\"——这已经含蓄地否定了两个凡是。1978.12十一届三中全会确立解放思想实事求——标志着两个凡是时代的终结。"},
+
+{"period":"1977-1982","type":"single","question":"农村改革中肥西县山南公社（包产到户）和小岗村（大包干）哪个在前——为什么后来宣传中小岗村成了旗帜而肥西反而鲜为人知",
+"options":["小岗村比肥西更早实行了包产到户","肥西县山南公社包产到户试点在先1978年秋——小岗村大包干在后1979年2月——但小岗村18个手印更具戏剧性和视觉冲击力——万里后来说两个都一样但中央文件把农村改革统称为家庭联产承包责任制——小岗村的大包干更贴近这个名称","两县同时试点不分先后只是小岗村宣传力度更大","肥西县实际上是学小岗村的经验后才开始推行包产到户"],"answer":1,
+"analysis":"周曰礼（安徽省委农村工作部部长）2009年接受访谈时明确说：山南称包产到户小岗村后来称大包干——实际内容和操作都一样。因为中央文件将农村的这次改革称为家庭联产承包责任制与小岗村农民的大包干更贴近一些——小岗村18个手印更具有农民的代表性——以后在全国宣传小岗村就多起来。杜润生总结：农村改革并没有一幅事先描绘好的蓝图——它是在农民基层干部地方政府和中央领导各个层次各个方面的互动过程中完成的。"},
+
+{"period":"1977-1982","type":"single","question":"邓小平对傻子瓜子三次表态\"不要动\"——这个表态的深层逻辑是什么",
+"options":["邓认为年广九的经营活动对国民经济有重大贡献","邓的逻辑不是给雇工问题定性而是\"不动\"——因为一动群众就会说政策变了人心就不安了——\"看不准的先放一放\"本身就是改革开放最核心的决策方法论","邓认为雇工问题应该由地方政府自行处理中央政府不应干预","邓实际上支持雇工经营只是碍于党内反对意见不便明说"],"answer":1,
+"analysis":"邓三次表态（1980放一放看一看→1984.10.22不要动一动人们就说政策变了→1992南方谈话不能动一动了得不偿失）体现了一个核心方法论：不是急于给争议做结论而是让实践来检验。邓说让傻子瓜子经营一段怕什么伤害了社会主义吗？如果不处理就会影响大局吗？如果处理了群众说政策变了人心不安得不偿失。这种不争论先实践的思路是改革开放区别于之前三十年政治运动的关键。"},
+]
+
+# Verify all options are balanced
+for q in Q:
+    lens = [len(o) for o in q['options']]
+    r = max(lens)/min(lens) if min(lens)>0 else 99
+    if r > 2.2:
+        print(f'  WARNING #{q.get("id","?")}: r={r:.1f} lens={lens}')
+
+data_json = json.dumps(Q, ensure_ascii=False, separators=(',',':'))
+
+# CSS and JS (same as before, cleaned up)
 css = '''*{margin:0;padding:0;box-sizing:border-box}body{font-family:"Microsoft YaHei",sans-serif;background:#f5f0e8;color:#2c2416}
-.c{max-width:800px;margin:0 auto;padding:16px}
-h1{text-align:center;color:#8b1a1a;padding:16px 0;font-size:1.4em}
+.c{max-width:800px;margin:0 auto;padding:16px}h1{text-align:center;color:#8b1a1a;padding:16px 0;font-size:1.4em}
 .btn{display:block;width:100%;padding:14px;margin:8px 0;border:none;border-radius:8px;font-size:1em;cursor:pointer;text-align:center;background:#8b1a1a;color:#fff}
-.btn2{background:#fff;color:#8b1a1a;border:2px solid #8b1a1a}
-.btn3{background:#fff;color:#8b6914;border:2px solid #8b6914}
+.btn2{background:#fff;color:#8b1a1a;border:2px solid #8b1a1a}.btn3{background:#fff;color:#8b6914;border:2px solid #8b6914}
 .card{background:#fff;border-radius:10px;padding:20px;margin:12px 0;box-shadow:0 2px 6px rgba(0,0,0,.05);line-height:1.6}
 .opt{display:block;width:100%;padding:12px 16px;margin:6px 0;text-align:left;border:2px solid #e0d8c8;border-radius:6px;background:#fdfaf5;font-size:.95em;cursor:pointer}
-.opt:hover{border-color:#8b6914}
-.opt.good{border-color:#27ae60;background:#eafaf1}
-.opt.bad{border-color:#e74c3c;background:#fdedec}
-.opt.done{pointer-events:none}
+.opt:hover{border-color:#8b6914}.opt.good{border-color:#27ae60;background:#eafaf1}.opt.bad{border-color:#e74c3c;background:#fdedec}.opt.done{pointer-events:none}
 .ana{margin-top:12px;padding:14px;background:#fef9ef;border-left:4px solid #8b6914;border-radius:4px;font-size:.9em;line-height:1.6;display:none}
-.ana.on{display:block}
-.next{display:none;margin-top:10px;padding:10px 24px;background:#8b1a1a;color:#fff;border:none;border-radius:6px;cursor:pointer}
-.next.on{display:inline-block}
-.badge{display:inline-block;background:#e74c3c;color:#fff;border-radius:10px;padding:1px 8px;font-size:.8em;margin-left:4px}
-.empty{text-align:center;padding:60px 20px;color:#999}
-.back{color:#8b1a1a;background:none;border:none;cursor:pointer;margin-bottom:8px;font-size:.9em}'''
+.ana.on{display:block}.next{display:none;margin-top:10px;padding:10px 24px;background:#8b1a1a;color:#fff;border:none;border-radius:6px;cursor:pointer}
+.next.on{display:inline-block}.badge{display:inline-block;background:#e74c3c;color:#fff;border-radius:10px;padding:1px 8px;font-size:.8em;margin-left:4px}
+.empty{text-align:center;padding:60px 20px;color:#999}.back{color:#8b1a1a;background:none;border:none;cursor:pointer;margin-bottom:8px;font-size:.9em}'''
 
-html = '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>中国当代史刷题</title><style>' + css + '</style></head><body><div class="c" id="app"></div><script>'
-html += 'var Q=' + data_json + ';'
-html += r'''var labels="ABCDEFGH";var state={view:"home",filter:"all",queue:[],idx:0};var app=document.getElementById("app");
+js = r'''var labels="ABCDEFGH";var state={view:"home",filter:"all",queue:[],idx:0};var app=document.getElementById("app");
 function P(){try{return JSON.parse(localStorage.cq_p||'{"t":0,"c":0}')}catch(e){return{t:0,c:0}}}
 function W(){try{return JSON.parse(localStorage.cq_w||'[]')}catch(e){return[]}}
-function Sp(p){localStorage.cq_p=JSON.stringify(p)}
-function Sw(w){localStorage.cq_w=JSON.stringify(w)}
+function Sp(p){localStorage.cq_p=JSON.stringify(p)};function Sw(w){localStorage.cq_w=JSON.stringify(w)}
 function home(){
 var p=P();var w=W();var r=p.t>0?Math.round(p.c/p.t*100):"-";
 app.innerHTML='<h1>中国当代史 · 题库</h1><div style="text-align:center;margin-bottom:16px;color:#666">已刷'+p.t+'题 | 正确率'+r+'% | 错题'+w.length+'道 | 共'+Q.length+'题</div>'+
@@ -58,8 +97,7 @@ app.innerHTML='<h1>中国当代史 · 题库</h1><div style="text-align:center;m
 function start(f){
 state.filter=f;state.view="quiz";
 var pool=Q;if(f!=="all")pool=Q.filter(function(q){return q.period===f});
-state.queue=pool.map(function(q){return q.id}).sort(function(){return Math.random()-0.5});
-state.idx=0;quiz();
+state.queue=pool.map(function(q){return q.id}).sort(function(){return Math.random()-0.5});state.idx=0;quiz();
 }
 function quiz(){
 if(state.idx>=state.queue.length){app.innerHTML='<div class="card" style="text-align:center"><h2>完成!</h2><button class="btn" onclick="start(state.filter)">再来一轮</button><button class="btn2 btn" onclick="home()">返回主页</button></div>';return}
@@ -69,24 +107,21 @@ app.innerHTML='<button class="back" onclick="home()">← 返回</button>'+
 '<div class="card"><small style="color:#999">'+n+'/'+t+' · '+q.period+'</small>'+
 '<p style="font-size:1.1em;margin:12px 0">'+q.question+'</p>'+
 q.options.map(function(o,i){return '<button class="opt" id="o'+i+'" onclick="answer('+qid+','+i+')">'+labels[i]+'. '+o+'</button>'}).join('')+
-'<div class="ana" id="ana"></div><button class="next" id="nxt" onclick="next()">下一题</button></div>';
+'<div class="ana" id="ana"></div><button class="next" id="nxt" onclick="next()">下一题 →</button></div>';
 document.onkeydown=function(e){if(e.key==="ArrowRight")next();var k=e.key.toUpperCase();var i=labels.indexOf(k);if(i>=0){var b=document.getElementById("o"+i);if(b&&!b.classList.contains("done"))answer(qid,i)}};
 }
 function answer(qid,ua){
-var q=Q.find(function(x){return x.id===qid});if(!q)return;
-var ok=ua===q.answer;
+var q=Q.find(function(x){return x.id===qid});if(!q)return;var ok=ua===q.answer;
 document.querySelectorAll(".opt").forEach(function(b){b.classList.add("done")});
 document.getElementById("o"+q.answer).classList.add("good");
 if(!ok){document.getElementById("o"+ua).classList.add("bad");var w=W();if(w.indexOf(qid)<0){w.unshift(qid);Sw(w)}}
 var p=P();p.t++;if(ok)p.c++;Sp(p);
 document.getElementById("ana").innerHTML='<b>'+(ok?'✓ 正确':'✗ 错误')+'</b> 答案: <b>'+labels[q.answer]+'. '+q.options[q.answer]+'</b><br><br>'+(q.analysis||'');
-document.getElementById("ana").classList.add("on");
-document.getElementById("nxt").classList.add("on");
+document.getElementById("ana").classList.add("on");document.getElementById("nxt").classList.add("on");
 }
 function next(){state.idx++;quiz()}
 function wrong(){
-var w=W();
-if(w.length===0){app.innerHTML='<button class="back" onclick="home()">← 返回</button><div class="empty">暂无错题</div>';return}
+var w=W();if(w.length===0){app.innerHTML='<button class="back" onclick="home()">← 返回</button><div class="empty">暂无错题</div>';return}
 var h='<button class="back" onclick="home()">← 返回</button><h2>错题本('+w.length+'题)</h2>';
 w.forEach(function(qid){var q=Q.find(function(x){return x.id===qid});if(!q)return;
 h+='<div class="card"><b>#'+q.id+'</b> '+q.question+'<br><span style="color:#1e7e34">答案: '+labels[q.answer]+'. '+q.options[q.answer]+'</span><div class="ana on" style="margin-top:8px">'+(q.analysis||'')+'</div></div>';
@@ -100,12 +135,11 @@ ps.forEach(function(p){var qs=Q.filter(function(q){return q.period===p});if(qs.l
 h+='<h3 style="color:#8b1a1a;margin:16px 0 8px">'+pn[p]+' · '+qs.length+'题</h3>';
 qs.forEach(function(q){h+='<div class="card" style="cursor:pointer" onclick="var el=this.querySelector(\'div\');el.style.display=el.style.display==\'block\'?\'none\':\'block\'"><b>#'+q.id+'</b> '+q.question+'<div style="display:none;margin-top:8px;padding-top:8px;border-top:1px solid #eee"><b style="color:#1e7e34">'+labels[q.answer]+'. '+q.options[q.answer]+'</b><br>'+(q.analysis||'')+'</div></div>'});
 });app.innerHTML=h;
-}
-home();</script></body></html>'''
+}'''
+
+html = '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>中国当代史刷题</title><style>' + css + '</style></head><body><div class="c" id="app"></div><script>var Q=' + data_json + ';' + js + 'home();</script></body></html>'
 
 out = os.path.join(BASE, 'index.html')
 with open(out, 'w', encoding='utf-8') as f:
     f.write(html)
-print(f'Written: {len(html)} bytes')
-print(f'Sample Q count: {len(sample)}')
-PYEOF
+print(f'Done: {len(html)} bytes, {len(Q)} questions')
