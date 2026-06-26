@@ -280,7 +280,12 @@ function searchBrowse(kw){
 }
 
 function showView(v){state.view=v;render()}
-async function init(){await loadQuestions();console.log(QUESTIONS.length+' questions loaded');render()}
+async function init(){
+  app.innerHTML='<div class="empty-state"><p style="font-size:1.2em">加载题库中...</p><p style="color:#aaa;font-size:.9em">308题 · 约150KB · 请稍候</p></div>';
+  await loadQuestions();
+  console.log(QUESTIONS.length+' questions loaded');
+  render();
+}
 init();
 </script>
 </body>
