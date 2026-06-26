@@ -30,8 +30,9 @@ var pool=Q;if(f!=="all")pool=Q.filter(function(q){return q.period===f});
 state.queue=pool.map(function(q){return q.id}).sort(function(){return Math.random()-0.5});state.idx=0;quiz();
 }
 function quiz(){
+if(!state.queue||state.queue.length===0){state.queue=Q.map(function(q){return q.id}).sort(function(){return Math.random()-0.5});state.idx=0}
 if(state.idx>=state.queue.length){app.innerHTML='<div class="card" style="text-align:center"><h2>完成!</h2><button class="btn" onclick="start(state.filter)">再来一轮</button><button class="btn2 btn" onclick="home()">返回主页</button></div>';return}
-var qid=state.queue[state.idx];var q=Q.find(function(x){return x.id===qid});if(!q){state.idx++;quiz();return}
+var qid=state.queue[state.idx];var q=null;for(var i=0;i<Q.length;i++){if(Q[i].id===qid){q=Q[i];break}}if(!q){state.idx++;quiz();return}
 var n=state.idx+1;var t=state.queue.length;
 app.innerHTML='<button class="back" onclick="home()">← 返回</button>'+
 '<div class="card"><small style="color:#999">'+n+'/'+t+' · '+q.period+'</small>'+
