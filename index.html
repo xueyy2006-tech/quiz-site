@@ -55,14 +55,17 @@ let QUESTIONS = [];
 async function loadQuestions(){
   try{
     const r=await fetch('questions.js');
+    if(!r.ok)throw new Error('HTTP '+r.status);
     const t=await r.text();
-    QUESTIONS=JSON.parse(t.replace(/^window\.QUESTIONS\s*=\s*/,'').replace(/;\s*$/,''));
+    const start=t.indexOf('[');
+    const end=t.lastIndexOf(']');
+    if(start<0||end<0)throw new Error('Invalid JS format');
+    QUESTIONS=JSON.parse(t.substring(start,end+1));
+    console.log('Loaded '+QUESTIONS.length+' questions');
   }catch(e){
-    console.error('Load failed',e);
-    try{
-      const r2=await fetch('questions_data.json');
-      QUESTIONS=await r2.json();
-    }catch(e2){QUESTIONS=[]}
+    console.error('Load error, using embedded:',e.message);
+    // Embedded fallback: 5 sample questions
+    QUESTIONS=[{"id":1,"period":"1949-1952","type":"single","question":"七届二中全会决定党的工作重心如何转移","options":["从军事转向经济","从农村转移到城市","从政治转向生产","从武装转向议会"],"answer":1,"analysis":"1949年3月西柏坡。从现在起开始了由城市到乡村并由城市领导乡村的时期。"},{"id":2,"period":"1949-1952","type":"single","question":"《共同纲领》确立的国家性质是什么","options":["社会主义国家","新民主主义即人民民主主义的国家","无产阶级专政国家","资产阶级民主共和国"],"answer":1,"analysis":"1949.9.29政协通过。1954年宪法颁布前起临时宪法作用。"},{"id":3,"period":"1953-1957","type":"single","question":"过渡时期总路线的一化三改指什么","options":["农业化+工业商业军事改革","社会主义工业化+对农业手工业和资本主义工商业的改造","重工业化+轻工业农业服务业改革","国防现代化+政治经济文化改革"],"answer":1,"analysis":"1953.6.15政治局会议首次完整表述。1954年写入宪法。"}];
   }
 }
 
