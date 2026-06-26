@@ -15,12 +15,12 @@ function Sp(p){localStorage.cq_p=JSON.stringify(p)};function Sw(w){localStorage.
 function home(){
 var p=P();var w=W();var r=p.t>0?Math.round(p.c/p.t*100):"-";
 app.innerHTML='<h1>中国当代史 · 题库</h1><div style="text-align:center;margin-bottom:16px;color:#666">已刷'+p.t+'题 | 正确率'+r+'% | 错题'+w.length+'道 | 共'+Q.length+'题</div>'+
-'<button class="btn" onclick="start(\'all\')">开始刷题（全部时期）</button>'+
-'<button class="btn2 btn" onclick="start(\'1949-1952\')">1949-1952 建国初期</button>'+
-'<button class="btn2 btn" onclick="start(\'1953-1957\')">1953-1957 过渡时期</button>'+
-'<button class="btn2 btn" onclick="start(\'1958-1965\')">1958-1965 大跃进</button>'+
-'<button class="btn2 btn" onclick="start(\'1966-1976\')">1966-1976 文革</button>'+
-'<button class="btn2 btn" onclick="start(\'1977-1982\')">1977-1982 改革开放</button>'+
+'<button class="btn" onclick="start('all')">开始刷题（全部时期）</button>'+
+'<button class="btn2 btn" onclick="start('1949-1952')">1949-1952 建国初期</button>'+
+'<button class="btn2 btn" onclick="start('1953-1957')">1953-1957 过渡时期</button>'+
+'<button class="btn2 btn" onclick="start('1958-1965')">1958-1965 大跃进</button>'+
+'<button class="btn2 btn" onclick="start('1966-1976')">1966-1976 文革</button>'+
+'<button class="btn2 btn" onclick="start('1977-1982')">1977-1982 改革开放</button>'+
 '<button class="btn3 btn" onclick="wrong()">错题本<span class=badge>'+w.length+'</span></button>'+
 '<button class="btn3 btn" onclick="browse()">题库大览</button>';
 }
