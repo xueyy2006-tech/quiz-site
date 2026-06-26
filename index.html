@@ -33,6 +33,8 @@ body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:#f5f0e8;c
 .opt-btn.wrong{border-color:#e74c3c;background:#fdedec;color:#b03a2e}
 .opt-btn.show-correct{border-color:#27ae60}
 .opt-btn.done{pointer-events:none}
+.order-btn:hover{background:#f0e8d0!important}
+.order-btn:active{background:#e0d0b0!important}
 .analysis-box{margin-top:16px;padding:16px;background:#fef9ef;border-left:4px solid #8b6914;border-radius:6px;font-size:.95em;line-height:1.7;display:none}
 .analysis-box.show{display:block}
 .next-btn{margin-top:12px;padding:12px 28px;background:#8b1a1a;color:#fff;border:none;border-radius:8px;font-size:1em;cursor:pointer;display:none}
@@ -135,7 +137,7 @@ function renderQuiz(){
   if(qtype==='order'){
     const shuffled=[...q.items].map((item,i)=>({item,orig:i})).sort(()=>Math.random()-0.5);
     state._orderShuffled=shuffled;
-    optHTML=shuffled.map((s,i)=>`<div style="display:flex;align-items:center;margin:6px 0;gap:10px"><span style="font-weight:bold;min-width:20px">${i+1}.</span><span style="flex:1;padding:10px;background:#fdfaf5;border:1px solid #e0d8c8;border-radius:6px">${s.item}</span></div>`).join('');
+    optHTML=shuffled.map((s,i)=>`<div class="order-item" data-orig="${s.orig}" style="display:flex;align-items:center;margin:6px 0;gap:6px"><button class="order-btn" onclick="moveOrderItem(this,-1)" style="width:32px;height:32px;border:1px solid #ccc;border-radius:4px;background:#fff;cursor:pointer;font-size:16px">▲</button><button class="order-btn" onclick="moveOrderItem(this,1)" style="width:32px;height:32px;border:1px solid #ccc;border-radius:4px;background:#fff;cursor:pointer;font-size:16px">▼</button><span style="font-weight:bold;min-width:20px;text-align:center">${i+1}.</span><span style="flex:1;padding:10px;background:#fdfaf5;border:1px solid #e0d8c8;border-radius:6px">${s.item}</span></div>`).join('');
   }else if(qtype==='multi'){
     optHTML=q.options.map((opt,i)=>`<label class="opt-btn" id="opt-${i}" style="display:flex;align-items:center;gap:10px;cursor:pointer"><input type="checkbox" id="chk-${i}" style="width:18px;height:18px"><span>${labels[i]||''}. ${opt||''}</span></label>`).join('')+'<button class="btn btn-primary" style="margin-top:12px" onclick="answerQuizMulti('+qid+')">确认提交</button>';
   }else{
@@ -201,12 +203,25 @@ function answerQuizMulti(qid){
   a.classList.add('show');document.getElementById('next-btn').classList.add('show');
 }
 
+function moveOrderItem(btn,dir){
+  const item=btn.parentElement;
+  const container=item.parentElement;
+  const items=[...container.querySelectorAll('.order-item')];
+  const idx=items.indexOf(item);
+  const newIdx=idx+dir;
+  if(newIdx<0||newIdx>=items.length)return;
+  if(dir<0)container.insertBefore(item,items[newIdx]);
+  else container.insertBefore(items[newIdx],item);
+  // Update numbers
+  container.querySelectorAll('.order-item').forEach((el,i)=>{el.querySelector('span').textContent=(i+1)+'.';});
+}
+
 function answerQuizOrder(qid){
   const q=QUESTIONS.find(x=>x.id===qid);if(!q)return;
-  const sh=state._orderShuffled;
-  // User order is just the display order (1,2,3...)
-  const userOrder=sh.map(s=>s.orig);
-  const correctOrder=q.answer; // indices of correct order
+  // Read current order from DOM
+  const items=[...document.querySelectorAll('.order-item')];
+  const userOrder=items.map(el=>parseInt(el.getAttribute('data-orig')));
+  const correctOrder=q.answer;
   const allCorrect=JSON.stringify(userOrder)===JSON.stringify(correctOrder);
   // Highlight
   const optsDiv=document.getElementById('options');
