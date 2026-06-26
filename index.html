@@ -137,9 +137,9 @@ function renderQuiz(){
     state._orderShuffled=shuffled;
     optHTML=shuffled.map((s,i)=>`<div style="display:flex;align-items:center;margin:6px 0;gap:10px"><span style="font-weight:bold;min-width:20px">${i+1}.</span><span style="flex:1;padding:10px;background:#fdfaf5;border:1px solid #e0d8c8;border-radius:6px">${s.item}</span></div>`).join('');
   }else if(qtype==='multi'){
-    optHTML=q.options.map((opt,i)=>`<label class="opt-btn" id="opt-${i}" style="display:flex;align-items:center;gap:10px;cursor:pointer"><input type="checkbox" id="chk-${i}" style="width:18px;height:18px"><span>${labels[i]}. ${opt}</span></label>`).join('')+'<button class="btn btn-primary" style="margin-top:12px" onclick="answerQuizMulti('+qid+')">确认提交</button>';
+    optHTML=q.options.map((opt,i)=>`<label class="opt-btn" id="opt-${i}" style="display:flex;align-items:center;gap:10px;cursor:pointer"><input type="checkbox" id="chk-${i}" style="width:18px;height:18px"><span>${labels[i]||''}. ${opt||''}</span></label>`).join('')+'<button class="btn btn-primary" style="margin-top:12px" onclick="answerQuizMulti('+qid+')">确认提交</button>';
   }else{
-    optHTML=q.options.map((opt,i)=>`<button class="opt-btn" id="opt-${i}" onclick="answerQuiz(${qid},${i})">${labels[i]}. ${opt}</button>`).join('');
+    optHTML=q.options.map((opt,i)=>`<button class="opt-btn" id="opt-${i}" onclick="answerQuiz(${qid},${i})">${labels[i]||''}. ${opt||''}</button>`).join('');
   }
 
   app.innerHTML=`<div class="nav-back" onclick="showView('home')">← 返回主页</div>
