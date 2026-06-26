@@ -2,294 +2,104 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>中国当代史 · 选择题题库 (1949-1982)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>中国当代史刷题</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:#f5f0e8;color:#2c2416;min-height:100vh}
-.container{max-width:800px;margin:0 auto;padding:20px}
-.header{text-align:center;padding:40px 20px 30px}
-.header h1{font-size:1.8em;color:#8b1a1a}
-.header .sub{font-size:.9em;color:#8b6914}
-.header .stats{margin-top:12px;font-size:.85em;color:#666}
-.card{background:#fff;border-radius:12px;padding:24px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.btn{display:block;width:100%;padding:16px 24px;margin:10px 0;border:none;border-radius:10px;font-size:1.02em;cursor:pointer;text-align:center;transition:all .2s}
-.btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.12)}
-.btn-primary{background:#8b1a1a;color:#fff}
-.btn-outline{background:#fff;color:#8b1a1a;border:2px solid #8b1a1a}
-.btn-browse{background:#fff;color:#5a4a2a;border:2px solid #8b6914}
-.badge{display:inline-block;background:#e74c3c;color:#fff;border-radius:12px;padding:2px 10px;font-size:.8em;margin-left:6px}
-.quiz-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px}
-.progress-bar{flex:1;height:8px;background:#eee;border-radius:4px;overflow:hidden;min-width:100px}
-.progress-fill{height:100%;background:#8b1a1a;transition:width .3s}
-.quiz-stats{font-size:.9em;color:#666}
-.period-select{padding:8px 12px;border:1px solid #ccc;border-radius:6px;font-size:.9em}
-.q-card{background:#fff;border-radius:12px;padding:28px;margin:16px 0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.q-num{font-size:.85em;color:#999;margin-bottom:8px}
-.q-text{font-size:1.15em;line-height:1.7;margin-bottom:20px}
-.opt-btn{display:block;width:100%;padding:14px 18px;margin:8px 0;text-align:left;border:2px solid #e0d8c8;border-radius:8px;background:#fdfaf5;font-size:1em;cursor:pointer;transition:all .2s}
-.opt-btn:hover:not(.done){border-color:#8b6914;background:#fef9ef}
-.opt-btn.correct{border-color:#27ae60;background:#eafaf1;color:#1e7e34}
-.opt-btn.wrong{border-color:#e74c3c;background:#fdedec;color:#b03a2e}
-.opt-btn.show-correct{border-color:#27ae60}
-.opt-btn.done{pointer-events:none}
-.order-btn:hover{background:#f0e8d0!important}
-.order-btn:active{background:#e0d0b0!important}
-.analysis-box{margin-top:16px;padding:16px;background:#fef9ef;border-left:4px solid #8b6914;border-radius:6px;font-size:.95em;line-height:1.7;display:none}
-.analysis-box.show{display:block}
-.next-btn{margin-top:12px;padding:12px 28px;background:#8b1a1a;color:#fff;border:none;border-radius:8px;font-size:1em;cursor:pointer;display:none}
-.next-btn.show{display:inline-block}
-.wrong-item{background:#fff;border-radius:10px;padding:18px;margin:12px 0;box-shadow:0 1px 4px rgba(0,0,0,.05)}
-.wrong-analysis{font-size:.9em;padding:10px;background:#fef9ef;border-radius:6px;margin-top:8px;line-height:1.6}
-.empty-state{text-align:center;padding:60px 20px;color:#999;font-size:1.1em}
-.nav-back{display:inline-block;padding:8px 16px;color:#8b1a1a;cursor:pointer;font-size:.9em;margin-bottom:12px}
-.key-hints{text-align:center;font-size:.8em;color:#aaa;margin-top:8px}
-.hidden{display:none}
-@media(max-width:600px){.header h1{font-size:1.4em}.q-text{font-size:1.05em}.opt-btn{padding:12px 14px;font-size:.95em}}
+body{font-family:'Microsoft YaHei',sans-serif;background:#f5f0e8;color:#2c2416}
+.c{max-width:800px;margin:0 auto;padding:16px}
+h1{text-align:center;color:#8b1a1a;padding:20px 0;font-size:1.5em}
+.btn{display:block;width:100%;padding:14px;margin:8px 0;border:none;border-radius:8px;font-size:1em;cursor:pointer;text-align:center;background:#8b1a1a;color:#fff}
+.btn2{background:#fff;color:#8b1a1a;border:2px solid #8b1a1a}
+.btn3{background:#fff;color:#8b6914;border:2px solid #8b6914}
+.card{background:#fff;border-radius:10px;padding:20px;margin:12px 0;box-shadow:0 2px 6px rgba(0,0,0,.05)}
+.opt{display:block;width:100%;padding:12px 16px;margin:6px 0;text-align:left;border:2px solid #e0d8c8;border-radius:6px;background:#fdfaf5;font-size:.95em;cursor:pointer}
+.opt:hover{border-color:#8b6914}
+.opt.good{border-color:#27ae60;background:#eafaf1}
+.opt.bad{border-color:#e74c3c;background:#fdedec}
+.opt.done{pointer-events:none}
+.ana{margin-top:12px;padding:14px;background:#fef9ef;border-left:4px solid #8b6914;border-radius:4px;font-size:.9em;line-height:1.6;display:none}
+.ana.on{display:block}
+.next{display:none;margin-top:10px;padding:10px 24px;background:#8b1a1a;color:#fff;border:none;border-radius:6px;cursor:pointer}
+.next.on{display:inline-block}
+.badge{display:inline-block;background:#e74c3c;color:#fff;border-radius:10px;padding:1px 8px;font-size:.8em;margin-left:4px}
+.empty{text-align:center;padding:60px 20px;color:#999}
 </style>
 </head>
 <body>
-<div class="container" id="app"></div>
+<div class="c" id="app"></div>
+<script src="questions.js"></script>
 <script>
-let QUESTIONS = [];
-async function loadQuestions(){
-  try{
-    const r=await fetch('questions.js');
-    if(!r.ok)throw new Error('HTTP '+r.status);
-    const t=await r.text();
-    const start=t.indexOf('[');
-    const end=t.lastIndexOf(']');
-    if(start<0||end<0)throw new Error('Invalid JS format');
-    QUESTIONS=JSON.parse(t.substring(start,end+1));
-    console.log('Loaded '+QUESTIONS.length+' questions');
-  }catch(e){
-    console.error('Load error, using embedded:',e.message);
-    // Embedded fallback: 5 sample questions
-    QUESTIONS=[{"id":1,"period":"1949-1952","type":"single","question":"七届二中全会决定党的工作重心如何转移","options":["从军事转向经济","从农村转移到城市","从政治转向生产","从武装转向议会"],"answer":1,"analysis":"1949年3月西柏坡。从现在起开始了由城市到乡村并由城市领导乡村的时期。"},{"id":2,"period":"1949-1952","type":"single","question":"《共同纲领》确立的国家性质是什么","options":["社会主义国家","新民主主义即人民民主主义的国家","无产阶级专政国家","资产阶级民主共和国"],"answer":1,"analysis":"1949.9.29政协通过。1954年宪法颁布前起临时宪法作用。"},{"id":3,"period":"1953-1957","type":"single","question":"过渡时期总路线的一化三改指什么","options":["农业化+工业商业军事改革","社会主义工业化+对农业手工业和资本主义工商业的改造","重工业化+轻工业农业服务业改革","国防现代化+政治经济文化改革"],"answer":1,"analysis":"1953.6.15政治局会议首次完整表述。1954年写入宪法。"}];
-  }
+var Q=window.QUESTIONS||[];
+var state={view:'home',filter:'all',queue:[],idx:0};
+var labels='ABCDEFGH';
+
+function h(){var p=JSON.parse(localStorage.cq_p||'{"t":0,"c":0}');var w=JSON.parse(localStorage.cq_w||'[]');
+var r=p.t>0?Math.round(p.c/p.t*100):'-';
+app.innerHTML='<h1>中国当代史 · 题库</h1><div style="text-align:center;margin-bottom:16px;color:#666">已刷'+p.t+'题 | 正确率'+r+'% | 错题'+w.length+'道 | 共'+Q.length+'题</div>'+
+'<button class="btn" onclick="s(\'all\')">开始刷题（全部时期）</button>'+
+'<button class="btn2 btn" onclick="s(\'1949-1952\')">1949-1952 建国初期</button>'+
+'<button class="btn2 btn" onclick="s(\'1953-1957\')">1953-1957 过渡时期</button>'+
+'<button class="btn2 btn" onclick="s(\'1958-1965\')">1958-1965 大跃进</button>'+
+'<button class="btn2 btn" onclick="s(\'1966-1976\')">1966-1976 文革</button>'+
+'<button class="btn2 btn" onclick="s(\'1977-1982\')">1977-1982 改革开放</button>'+
+'<button class="btn3 btn" onclick="x()">错题本<span class="badge">'+w.length+'</span></button>'+
+'<button class="btn3 btn" onclick="b()">题库大览</button>';
 }
 
-const STORE={
-  getWrongList(){try{return JSON.parse(localStorage.getItem('cq_wrong')||'[]')}catch(e){return[]}},
-  setWrongList(l){localStorage.setItem('cq_wrong',JSON.stringify(l))},
-  addWrong(qid){const l=this.getWrongList();if(!l.includes(qid)){l.unshift(qid);this.setWrongList(l)}},
-  removeWrong(qid){this.setWrongList(this.getWrongList().filter(id=>id!==qid))},
-  getProgress(){try{return JSON.parse(localStorage.getItem('cq_progress')||'{"total":0,"correct":0}')}catch(e){return{total:0,correct:0}}},
-  setProgress(p){localStorage.setItem('cq_progress',JSON.stringify(p))},
-  recordAnswer(correct){const p=this.getProgress();p.total++;if(correct)p.correct++;this.setProgress(p)}
-};
-
-let state={view:'home',quizFilter:'all',quizQueue:[],quizIndex:0,_orderShuffled:null};
-const app=document.getElementById('app');
-const labels=['A','B','C','D','E','F','G','H'];
-
-function render(){
-  switch(state.view){
-    case'home':renderHome();break;
-    case'quiz':renderQuiz();break;
-    case'wrong':renderWrong();break;
-    case'browse':renderBrowse();break;
-  }
+function s(f){
+  state.filter=f;state.view='quiz';
+  var pool=Q;if(f!=='all')pool=Q.filter(function(q){return q.period===f});
+  state.queue=pool.map(function(q){return q.id}).sort(function(){return Math.random()-0.5});
+  state.idx=0;r();
 }
 
-function renderHome(){
-  const p=STORE.getProgress();
-  const wc=STORE.getWrongList().length;
-  const rate=p.total>0?Math.round(p.correct/p.total*100):'-';
-  app.innerHTML=`<div class="header"><h1>中国当代史 · 选择题题库</h1><div class="sub">1949—1982 · 单选 · 多选 · 排序 | 覆盖建国初期至改革开放</div><div class="stats">已刷${p.total}题 | 正确率${rate}% | 错题${wc}道 | 共${QUESTIONS.length}题</div></div>
-    <div class="card">
-      <button class="btn btn-primary" onclick="startQuiz('all')">开始刷题（全部类型混合）</button>
-      <button class="btn btn-outline" onclick="startQuiz('1949-1952')">1949-1952 建国初期</button>
-      <button class="btn btn-outline" onclick="startQuiz('1953-1957')">1953-1957 过渡时期</button>
-      <button class="btn btn-outline" onclick="startQuiz('1958-1965')">1958-1965 大跃进与调整</button>
-      <button class="btn btn-outline" onclick="startQuiz('1966-1976')">1966-1976 文化大革命</button>
-      <button class="btn btn-outline" onclick="startQuiz('1977-1982')">1977-1982 改革开放初期</button>
-      <button class="btn btn-browse" onclick="showView('wrong')">错题本<span class="badge">${wc}</span></button>
-      <button class="btn btn-browse" onclick="showView('browse')">题库大览</button>
-    </div>`;
+function r(){
+  if(state.idx>=state.queue.length){app.innerHTML='<div class="card" style="text-align:center"><h2>完成!</h2><button class="btn" onclick="s(state.filter)">再来一轮</button><button class="btn2 btn" onclick="h()">返回主页</button></div>';return}
+  var qid=state.queue[state.idx];var q=Q.find(function(x){return x.id===qid});if(!q){state.idx++;r();return}
+  var t=state.filter==='all'?Q:Q.filter(function(x){return x.period===state.filter});
+  var p=JSON.parse(localStorage.cq_p||'{"t":0,"c":0}');
+  app.innerHTML='<button style="color:#8b1a1a;background:none;border:none;cursor:pointer;margin-bottom:8px" onclick="h()">← 返回</button>'+
+  '<div class="card"><small style="color:#999">'+(state.idx+1)+'/'+t.length+' · '+q.period+'</small>'+
+  '<p style="font-size:1.1em;margin:12px 0">'+q.question+'</p>'+
+  q.options.map(function(o,i){return '<button class="opt" id="o'+i+'" onclick="a('+qid+','+i+')">'+labels[i]+'. '+o+'</button>'}).join('')+
+  '<div class="ana" id="ana"></div><button class="next" id="nxt" onclick="n()">下一题 →</button></div>';
+  document.onkeydown=function(e){if(e.key==='ArrowRight')n();var k=e.key.toUpperCase();if('ABCD'.indexOf(k)>=0){var b=document.getElementById('o'+labels.indexOf(k));if(b&&!b.classList.contains('done'))a(qid,labels.indexOf(k))}};
 }
 
-function startQuiz(filter){
-  state.quizFilter=filter;
-  let pool=QUESTIONS;
-  if(filter!=='all')pool=pool.filter(q=>q.period===filter);
-  state.quizQueue=pool.map(q=>q.id).sort(()=>Math.random()-0.5);
-  state.quizIndex=0;
-  state.view='quiz';
-  render();
+function a(qid,ua){
+  var q=Q.find(function(x){return x.id===qid});if(!q)return;
+  var ok=ua===q.answer;var btns=document.querySelectorAll('.opt');btns.forEach(function(b){b.classList.add('done')});
+  document.getElementById('o'+q.answer).classList.add('good');
+  if(!ok){document.getElementById('o'+ua).classList.add('bad');var w=JSON.parse(localStorage.cq_w||'[]');if(w.indexOf(qid)<0){w.unshift(qid);localStorage.cq_w=JSON.stringify(w)}}
+  var p=JSON.parse(localStorage.cq_p||'{"t":0,"c":0}');p.t++;if(ok)p.c++;localStorage.cq_p=JSON.stringify(p);
+  var ana=document.getElementById('ana');ana.innerHTML='<b>'+(ok?'✓ 正确':'✗ 错误')+'</b> 正确答案: <b>'+labels[q.answer]+'. '+q.options[q.answer]+'</b><br><br>'+(q.analysis||'');
+  ana.classList.add('on');document.getElementById('nxt').classList.add('on');
 }
 
-function renderQuiz(){
-  if(state.quizQueue.length===0){app.innerHTML='<div class="empty-state">暂无题目</div>';return}
-  if(state.quizIndex>=state.quizQueue.length){
-    const p=STORE.getProgress();
-    app.innerHTML=`<div class="card" style="text-align:center"><h2>完成!</h2><p style="font-size:1.2em;margin:16px 0">正确率:${p.total>0?Math.round(p.correct/p.total*100):0}%</p><button class="btn btn-primary" onclick="startQuiz(state.quizFilter)">再来一轮</button><button class="btn btn-outline" onclick="showView('wrong')">错题本</button><button class="btn btn-browse" onclick="showView('home')">主页</button></div>`;
-    return;
-  }
-  const qid=state.quizQueue[state.quizIndex];
-  const q=QUESTIONS.find(x=>x.id===qid);
-  if(!q){state.quizIndex++;render();return}
-  const qtype=q.type||'single';
-  const total=state.quizQueue.length;
-  const cur=state.quizIndex+1;
-  const p=STORE.getProgress();
-  const rate=p.total>0?Math.round(p.correct/p.total*100):'-';
-  const tLabel=qtype==='multi'?'【多选题】':(qtype==='order'?'【排序题】':'');
+function n(){state.idx++;r()}
 
-  let optHTML='';
-  if(qtype==='order'){
-    const shuffled=[...q.items].map((item,i)=>({item,orig:i})).sort(()=>Math.random()-0.5);
-    state._orderShuffled=shuffled;
-    optHTML=shuffled.map((s,i)=>`<div class="order-item" data-orig="${s.orig}" style="display:flex;align-items:center;margin:6px 0;gap:6px"><button class="order-btn" onclick="moveOrderItem(this,-1)" style="width:32px;height:32px;border:1px solid #ccc;border-radius:4px;background:#fff;cursor:pointer;font-size:16px">▲</button><button class="order-btn" onclick="moveOrderItem(this,1)" style="width:32px;height:32px;border:1px solid #ccc;border-radius:4px;background:#fff;cursor:pointer;font-size:16px">▼</button><span style="font-weight:bold;min-width:20px;text-align:center">${i+1}.</span><span style="flex:1;padding:10px;background:#fdfaf5;border:1px solid #e0d8c8;border-radius:6px">${s.item}</span></div>`).join('');
-  }else if(qtype==='multi'){
-    optHTML=q.options.map((opt,i)=>`<label class="opt-btn" id="opt-${i}" style="display:flex;align-items:center;gap:10px;cursor:pointer"><input type="checkbox" id="chk-${i}" style="width:18px;height:18px"><span>${labels[i]||''}. ${opt||''}</span></label>`).join('')+'<button class="btn btn-primary" style="margin-top:12px" onclick="answerQuizMulti('+qid+')">确认提交</button>';
-  }else{
-    optHTML=q.options.map((opt,i)=>`<button class="opt-btn" id="opt-${i}" onclick="answerQuiz(${qid},${i})">${labels[i]||''}. ${opt||''}</button>`).join('');
-  }
-
-  app.innerHTML=`<div class="nav-back" onclick="showView('home')">← 返回主页</div>
-    <div class="quiz-header"><div class="progress-bar"><div class="progress-fill" style="width:${cur/total*100}%"></div></div><div class="quiz-stats">${cur}/${total} | ${rate}%</div><select class="period-select" onchange="startQuiz(this.value)"><option value="all" ${state.quizFilter==='all'?'selected':''}>全部</option><option value="1949-1952" ${state.quizFilter==='1949-1952'?'selected':''}>1949-1952</option><option value="1953-1957" ${state.quizFilter==='1953-1957'?'selected':''}>1953-1957</option><option value="1958-1965" ${state.quizFilter==='1958-1965'?'selected':''}>1958-1965</option><option value="1966-1976" ${state.quizFilter==='1966-1976'?'selected':''}>1966-1976</option><option value="1977-1982" ${state.quizFilter==='1977-1982'?'selected':''}>1977-1982</option></select></div>
-    <div class="q-card"><div class="q-num">${cur} · ${tLabel} · ${q.period}</div><div class="q-text">${q.question}</div><div id="options">${optHTML}</div><div class="analysis-box" id="analysis"></div><button class="next-btn" id="next-btn" onclick="nextQuiz()">下一题 →</button></div>
-    <div class="key-hints">${qtype==='single'?'键盘 A/B/C/D 选择 | → 下一题':(qtype==='multi'?'勾选正确答案后点确认':'查看排序结果后点确认')}</div>`;
-
-  if(qtype==='order'&&!document.getElementById('order-confirm')){
-    const btn=document.createElement('button');
-    btn.id='order-confirm';btn.className='btn btn-primary';btn.style.marginTop='12px';btn.textContent='确认顺序';
-    btn.onclick=()=>answerQuizOrder(qid);
-    document.getElementById('options').appendChild(btn);
-  }
-  document.onkeydown=function(e){
-    if(state.view!=='quiz')return;
-    if(qtype==='single'){
-      const k=e.key.toUpperCase();
-      if(['A','B','C','D'].includes(k)){
-        const idx=labels.indexOf(k);
-        const btn=document.getElementById('opt-'+idx);
-        if(btn&&!btn.classList.contains('done'))answerQuiz(qid,idx);
-      }
-    }
-    if(e.key==='ArrowRight')nextQuiz();
-  };
+function x(){
+  state.view='wrong';var w=JSON.parse(localStorage.cq_w||'[]');
+  if(w.length===0){app.innerHTML='<button style="color:#8b1a1a;background:none;border:none;cursor:pointer" onclick="h()">← 返回</button><div class="empty">暂无错题</div>';return}
+  var hh='<button style="color:#8b1a1a;background:none;border:none;cursor:pointer;margin-bottom:8px" onclick="h()">← 返回</button><h2>错题本('+w.length+'题)</h2>';
+  w.forEach(function(qid){var q=Q.find(function(x){return x.id===qid});if(!q)return;
+    hh+='<div class="card"><b>#'+q.id+'</b> '+q.question+'<br><span style="color:#1e7e34">答案: '+labels[q.answer]+'. '+q.options[q.answer]+'</span><div class="ana on" style="margin-top:8px">'+(q.analysis||'')+'</div></div>';
+  });app.innerHTML=hh;
 }
 
-function answerQuiz(qid,ua){
-  const q=QUESTIONS.find(x=>x.id===qid);if(!q)return;
-  const correct=ua===q.answer;
-  document.querySelectorAll('.opt-btn').forEach(b=>b.classList.add('done'));
-  document.getElementById('opt-'+q.answer).classList.add('correct');
-  if(!correct){document.getElementById('opt-'+ua).classList.add('wrong');STORE.addWrong(qid)}
-  STORE.recordAnswer(correct);
-  const a=document.getElementById('analysis');
-  a.innerHTML=`<strong>${correct?'✓ 正确！':'✗ 错误'}</strong><br>正确答案: <strong>${labels[q.answer]}. ${q.options[q.answer]}</strong><br><br>${q.analysis}`;
-  a.classList.add('show');document.getElementById('next-btn').classList.add('show');
+function b(){
+  state.view='browse';var ps=['1949-1952','1953-1957','1958-1965','1966-1976','1977-1982'];
+  var pn={'1949-1952':'建国初期','1953-1957':'过渡时期','1958-1965':'大跃进与调整','1966-1976':'文化大革命','1977-1982':'改革开放初期'};
+  var hh='<button style="color:#8b1a1a;background:none;border:none;cursor:pointer;margin-bottom:8px" onclick="h()">← 返回</button><h2>题库大览('+Q.length+'题)</h2>';
+  ps.forEach(function(p){var qs=Q.filter(function(q){return q.period===p});if(qs.length===0)return;
+    hh+='<h3 style="color:#8b1a1a;margin:16px 0 8px">'+pn[p]+' · '+qs.length+'题</h3>';
+    qs.forEach(function(q){hh+='<div class="card" style="cursor:pointer" onclick="var el=this.querySelector(\'div\');el.style.display=el.style.display==\'block\'?\'none\':\'block\'"><b>#'+q.id+'</b> '+q.question+'<div style="display:none;margin-top:8px;padding-top:8px;border-top:1px solid #eee"><b style="color:#1e7e34">'+labels[q.answer]+'. '+q.options[q.answer]+'</b><br>'+(q.analysis||'')+'</div></div>'});
+  });app.innerHTML=hh;
 }
 
-function answerQuizMulti(qid){
-  const q=QUESTIONS.find(x=>x.id===qid);if(!q)return;
-  if(typeof q.answer==='number')q.answer=[q.answer];
-  const selected=[];
-  q.options.forEach((_,i)=>{if(document.getElementById('chk-'+i).checked)selected.push(i)});
-  const correctSet=new Set(q.answer);
-  const userSet=new Set(selected);
-  const allCorrect=correctSet.size===userSet.size&&[...correctSet].every(x=>userSet.has(x));
-  // Highlight
-  q.options.forEach((_,i)=>{
-    const el=document.getElementById('opt-'+i);el.classList.add('done');
-    if(correctSet.has(i))el.classList.add('correct');
-    if(userSet.has(i)&&!correctSet.has(i))el.classList.add('wrong');
-  });
-  if(!allCorrect)STORE.addWrong(qid);
-  STORE.recordAnswer(allCorrect);
-  const a=document.getElementById('analysis');
-  const correctLabels=q.answer.map(i=>labels[i]+'. '+q.options[i]).join('；');
-  a.innerHTML=`<strong>${allCorrect?'✓ 正确！':'✗ 错误'}</strong><br>正确答案: <strong>${correctLabels}</strong><br><br>${q.analysis}`;
-  a.classList.add('show');document.getElementById('next-btn').classList.add('show');
-}
-
-function moveOrderItem(btn,dir){
-  const item=btn.parentElement;
-  const container=item.parentElement;
-  const items=[...container.querySelectorAll('.order-item')];
-  const idx=items.indexOf(item);
-  const newIdx=idx+dir;
-  if(newIdx<0||newIdx>=items.length)return;
-  if(dir<0)container.insertBefore(item,items[newIdx]);
-  else container.insertBefore(items[newIdx],item);
-  // Update numbers
-  container.querySelectorAll('.order-item').forEach((el,i)=>{el.querySelector('span').textContent=(i+1)+'.';});
-}
-
-function answerQuizOrder(qid){
-  const q=QUESTIONS.find(x=>x.id===qid);if(!q)return;
-  // Read current order from DOM
-  const items=[...document.querySelectorAll('.order-item')];
-  const userOrder=items.map(el=>parseInt(el.getAttribute('data-orig')));
-  const correctOrder=q.answer;
-  const allCorrect=JSON.stringify(userOrder)===JSON.stringify(correctOrder);
-  // Highlight
-  const optsDiv=document.getElementById('options');
-  const items=optsDiv.querySelectorAll('div[style]');
-  items.forEach((div,i)=>{
-    if(userOrder[i]===correctOrder[i])div.style.background='#eafaf1';
-    else div.style.background='#fdedec';
-  });
-  if(!allCorrect)STORE.addWrong(qid);
-  STORE.recordAnswer(allCorrect);
-  const a=document.getElementById('analysis');
-  a.innerHTML=`<strong>${allCorrect?'✓ 正确！':'✗ 错误'}</strong><br>正确顺序: <strong>${correctOrder.map(i=>q.items[i]).join(' → ')}</strong><br><br>${q.analysis}`;
-  a.classList.add('show');document.getElementById('next-btn').classList.add('show');
-  const btn=document.getElementById('order-confirm');if(btn)btn.style.display='none';
-}
-
-function nextQuiz(){state.quizIndex++;render()}
-
-function renderWrong(){
-  const ids=STORE.getWrongList();
-  if(ids.length===0){app.innerHTML='<div class="nav-back" onclick="showView(\'home\')">← 返回主页</div><div class="empty-state">暂无错题，继续保持！</div>';return}
-  let h='<div class="nav-back" onclick="showView(\'home\')">← 返回主页</div><div class="card"><h2>错题本 ('+ids.length+'题)</h2></div>';
-  ids.forEach(qid=>{
-    const q=QUESTIONS.find(x=>x.id===qid);if(!q)return;
-    const qtype=q.type||'single';
-    let ansStr='';
-    if(qtype==='order')ansStr=q.answer.map(i=>q.items[i]).join(' → ');
-    else if(Array.isArray(q.answer))ansStr=q.answer.map(i=>labels[i]+'. '+q.options[i]).join('；');
-    else ansStr=labels[q.answer]+'. '+q.options[q.answer];
-    h+=`<div class="wrong-item"><strong>#${q.id} [${q.period}] ${qtype==='multi'?'[多选]':(qtype==='order'?'[排序]':'')}</strong> ${q.question}<br><span style="color:#1e7e34">答案: ${ansStr}</span><div class="wrong-analysis">${q.analysis}</div></div>`;
-  });
-  app.innerHTML=h;
-}
-
-function renderBrowse(){
-  const perNames={'1949-1952':'建国初期','1953-1957':'过渡时期','1958-1965':'大跃进与调整','1966-1976':'文化大革命','1977-1982':'改革开放初期'};
-  let h='<div class="nav-back" onclick="showView(\'home\')">← 返回主页</div><div class="card"><h2>题库大览</h2><input class="search-box" placeholder="搜索题目关键词..." oninput="searchBrowse(this.value)"><p style="color:#999">共'+QUESTIONS.length+'题 点击题目展开</p></div>';
-  ['1949-1952','1953-1957','1958-1965','1966-1976','1977-1982'].forEach(p=>{
-    const qs=QUESTIONS.filter(q=>q.period===p);if(qs.length===0)return;
-    h+=`<div class="period-section"><h3 style="color:#8b1a1a;margin:12px 0">${perNames[p]} · ${qs.length}题</h3>`;
-    qs.forEach(q=>{
-      const qtype=q.type||'single';let ansStr='';
-      if(qtype==='order')ansStr=q.answer.map(i=>q.items[i]).join(' → ');
-      else if(Array.isArray(q.answer))ansStr=q.answer.map(i=>labels[i]+'. '+q.options[i]).join('；');
-      else ansStr=labels[q.answer]+'. '+q.options[q.answer];
-      h+=`<div class="browse-q" data-text="${q.question}" onclick="this.querySelector('.q-answer').classList.toggle('show')"><span>#${q.id} ${qtype==='multi'?'[多选]':(qtype==='order'?'[排序]':'')}</span> ${q.question}<div class="q-answer" style="display:none;margin-top:8px;padding-top:8px;border-top:1px solid #eee"><strong style="color:#1e7e34">答案: ${ansStr}</strong><br>${q.analysis}</div></div>`;
-    });
-  });
-  app.innerHTML=h;
-}
-
-function searchBrowse(kw){
-  document.querySelectorAll('.browse-q').forEach(el=>{
-    el.style.display=(!kw||el.getAttribute('data-text').toLowerCase().includes(kw.toLowerCase()))?'':'none';
-  });
-}
-
-function showView(v){state.view=v;render()}
-async function init(){
-  app.innerHTML='<div class="empty-state"><p style="font-size:1.2em">加载题库中...</p><p style="color:#aaa;font-size:.9em">308题 · 约150KB · 请稍候</p></div>';
-  await loadQuestions();
-  console.log(QUESTIONS.length+' questions loaded');
-  render();
-}
-init();
+app.innerHTML='<div class="empty">加载中...</div>';
+if(Q.length>0){h()}else{app.innerHTML='<div class="empty">题库加载失败，请刷新页面</div>'}
 </script>
 </body>
 </html>
